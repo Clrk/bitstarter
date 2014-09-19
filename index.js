@@ -1,17 +1,16 @@
 var fs = require ('fs');
 var express = require('express');
 var app = express();
-var html = fs.readFile('index.html');
 
 
-app.set('port', (process.env.PORT || 5000))
-app.use(express.static(__dirname + '/public'))
+app.set('port', (process.env.PORT || 5000));
+app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(request, response) {
-  response.send(html.toString())
-})
+    var html = fs.readFileSync('index.html', "utf8");
+    response.send(html);
+});
 
 app.listen(app.get('port'), function() {
-  console.log("Node app is running at localhost:" + app.get('port'))
-})
-(__dirname + '/index.html');
+  console.log("Node app is running at localhost:" + app.get('port'));
+});
